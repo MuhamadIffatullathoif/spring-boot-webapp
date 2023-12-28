@@ -2,8 +2,10 @@ package com.iffat.springboot.webapp.bootstrap;
 
 import com.iffat.springboot.webapp.domain.Author;
 import com.iffat.springboot.webapp.domain.Book;
+import com.iffat.springboot.webapp.domain.Publisher;
 import com.iffat.springboot.webapp.repositories.AuthorRepository;
 import com.iffat.springboot.webapp.repositories.BookRepository;
+import com.iffat.springboot.webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,12 @@ public class BootstrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -52,5 +56,11 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("Author count: " + authorRepository.count());
         System.out.println("Book count: " + bookRepository.count());
 
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName("My Publisher");
+        publisher.setAddress("123 Main");
+        publisherRepository.save(publisher);
+
+        System.out.println("Publisher count: " + publisherRepository.count());
     }
 }
